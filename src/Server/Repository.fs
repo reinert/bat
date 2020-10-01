@@ -2,7 +2,7 @@ namespace Repository
 
 open Shared
 
-type TStorage () =
+type private TStorage () =
     let transactions = ResizeArray<_>()
 
     member __.GetTransactions () =
@@ -15,3 +15,12 @@ type TStorage () =
         | Ok _ ->
             transactions.Add t
             Ok t
+
+module Repository =
+    let private storage = TStorage()
+
+    let addTransaction (t: ExchangeTransaction) =
+        storage.CreateTransaction t
+
+    let getTransactions =
+        storage.GetTransactions
