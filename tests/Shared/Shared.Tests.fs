@@ -26,7 +26,10 @@ let shared = testList "Shared" [
         let (Ok created) = ExchangeCurrency.newTransaction date Currency.BRL Currency.USD 220.50m 100 "Provider"
         let expected = { Id = 0
                          Date = date
-                         Pair = { FromCurrency = Currency.BRL; ToCurrency = Currency.USD }
+                         // TODO: Set up aggregation for Currency Pair in EF
+                         // Pair = { FromCurrency = Currency.BRL; ToCurrency = Currency.USD }
+                         FromCurrency = Currency.BRL
+                         ToCurrency = Currency.USD
                          Price = 220.50m
                          Quantity = 100
                          Provider = "Provider" }

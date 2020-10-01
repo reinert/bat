@@ -1,5 +1,7 @@
 namespace Shared
 
+open Microsoft.EntityFrameworkCore
+open System.ComponentModel.DataAnnotations
 open System
 
 type Currency =
@@ -7,14 +9,19 @@ type Currency =
     | USD = 1
     | GBP = 2
 
-type ExchangePair =
-    { FromCurrency : Currency
-      ToCurrency : Currency }
+// TODO: Set up aggregation for ExchangePair in EF
+// type ExchangePair =
+//     { FromCurrency : Currency
+//       ToCurrency : Currency }
 
+[<CLIMutable>]
 type ExchangeTransaction = 
-    { Id : int
+    { [<Key>] Id : int
       Date : DateTime
-      Pair : ExchangePair
+      // TODO: Set up aggregation for ExchangePair in EF
+      // Pair : ExchangePair
+      FromCurrency : Currency
+      ToCurrency : Currency
       Price : decimal
       Quantity : int
       Provider : string }
@@ -30,8 +37,10 @@ module ExchangeCurrency =
         | Error e -> Error e
         | Ok _ -> Ok { Id = 0
                        Date = date
-                       Pair = { FromCurrency = fromCurrency; ToCurrency = toCurrency }
+                       // TODO: Set up aggregation for ExchangePair in EF
+                       // Pair = { FromCurrency = fromCurrency; ToCurrency = toCurrency }
+                       FromCurrency = fromCurrency
+                       ToCurrency = toCurrency
                        Price = price
                        Quantity = quantity
                        Provider = provider }
-        
