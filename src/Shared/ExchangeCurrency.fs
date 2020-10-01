@@ -1,6 +1,5 @@
 namespace Shared
 
-open Microsoft.EntityFrameworkCore
 open System.ComponentModel.DataAnnotations
 open System
 
