@@ -22,6 +22,7 @@ let shared = testList "Shared" [
     
     testCase "newTransaction with valid parameters returns ExchangeTransaction" <| fun _ ->
         let date = DateTime.Now
+        // TODO: How could I deconstruct generic Result and Value instead of specific pattern matching?
         let (Ok created) = ExchangeCurrency.newTransaction date Currency.BRL Currency.USD 220.50m 100 "Provider"
         let expected = { Id = 0
                          Date = date

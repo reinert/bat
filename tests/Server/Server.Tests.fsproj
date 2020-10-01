@@ -5,6 +5,7 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Repository.Tests.fs" />
     <Compile Include="Server.Tests.fs" />
   </ItemGroup>
   <ItemGroup>
