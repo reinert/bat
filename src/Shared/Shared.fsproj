@@ -4,7 +4,7 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Shared.fs" />
     <Compile Include="ExchangeCurrency.fs" />
+    <Compile Include="Shared.fs" />
   </ItemGroup>
 </Project>
