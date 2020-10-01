@@ -14,7 +14,7 @@ let all =
     testList "All"
         [
             Shared.Tests.shared
-            Repository.Tests.repository
+            Repository.Tests.sqliteRepository
             server
         ]
 

@@ -5,6 +5,10 @@ open System.ComponentModel.DataAnnotations
 
 open Shared
 
+type Repository =
+    abstract addTransaction : ExchangeTransaction -> Result<ExchangeTransaction, unit>
+    abstract getTransactions : unit -> ExchangeTransaction list
+
 type SqliteContext() =  
     inherit DbContext()
 
@@ -16,18 +20,19 @@ type SqliteContext() =
     override __.OnConfiguring(options: DbContextOptionsBuilder) : unit =
         options.UseSqlite("Data Source=../../.data/sqlite/exchange_currency.db") |> ignore
 
-module Repository =
-    let addTransaction (t: ExchangeTransaction) =
-        // TODO: set up a connection pool
-        use ctx = new SqliteContext()
-        ctx.ExchangeTransactions.Add t |> ignore
-        ctx.SaveChanges() |> ignore
-        ctx.Dispose()
-        Ok t
+type SqliteRepository() =
+    interface Repository with
+        member this.addTransaction (t: ExchangeTransaction) =
+            // TODO: set up a connection pool
+            use ctx = new SqliteContext()
+            ctx.ExchangeTransactions.Add t |> ignore
+            ctx.SaveChanges() |> ignore
+            ctx.Dispose()
+            Ok t
 
-    let getTransactions =
-        // TODO: set up a connection pool
-        use ctx = new SqliteContext()
-        let ts = ctx.ExchangeTransactions
-        ctx.Dispose()
-        List.ofSeq ts
+        member this.getTransactions () =
+            // TODO: set up a connection pool
+            use ctx = new SqliteContext()
+            let ts = ctx.ExchangeTransactions
+            ctx.Dispose()
+            List.ofSeq ts
