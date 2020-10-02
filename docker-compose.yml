@@ -1,0 +1,29 @@
+version: "3.0"
+services:
+  db:
+    image: postgres:alpine
+    volumes:
+      - ./.data/pgsql:/var/lib/postgresql/data
+      # - ./src/Server/init.sql:/docker-entrypoint-initdb.d/2.sql
+    environment:
+      POSTGRES_USER: $PG_USER
+      POSTGRES_PASSWORD: $PG_PWD
+      POSTGRES_DB: $PG_DB
+      PGUSER: $PG_USER
+      PGPASSWORD: $PG_PWD
+      PGDATABASE: $PG_DB
+  server:
+    build:
+      context: .
+      target: build
+    volumes:
+      - ./.data:/workspace/.data
+      - ./src:/workspace/src/
+      - ./tests:/workspace/tests/
+    depends_on:
+      - db
+    # command: bash -c "cd src/Server && dotnet ef database update"
+    # command: bash -c "cd tests/Server && dotnet run"
+    command: bash
+    stdin_open: true
+    tty: true
