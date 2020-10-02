@@ -57,12 +57,12 @@ let sqliteRepository = testList "SqliteRepository" [
     let sqlite = Repository.getRepository Database.Sqlite
 
     testCase "addProvider with a valid instance should save it in the DB and return ok" <| fun _ ->
-        clearTable sqlite "Providers"
+        // clearTable sqlite "Providers" |> ignore
         addProviderValid sqlite
 
     testCase "addTransaction with a valid instance should save it in the DB and return ok" <| fun _ ->
-        clearTable sqlite "ExchangeTransactions"
-        clearTable sqlite "Providers"
+        clearTable sqlite "ExchangeTransactions" |> ignore
+        clearTable sqlite "Providers" |> ignore
         addTransactionValid sqlite
 ]
 
@@ -74,11 +74,11 @@ let pgsqlRepository = testList "PgsqlRepository" [
     let pgsql = Repository.getRepository Database.PostgreSql
 
     testCase "addProvider with a valid instance should save it in the DB and return ok" <| fun _ ->
-        clearTable pgsql "Providers"
+        // clearTable pgsql "Providers" |> ignore
         addProviderValid pgsql
 
     testCase "addTransaction with a valid instance should save it in the DB and return ok" <| fun _ ->
-        clearTable pgsql "exchange_transactions"
-        clearTable pgsql "providers"
+        clearTable pgsql "exchange_transactions" |> ignore
+        clearTable pgsql "providers" |> ignore
         addTransactionValid pgsql
 ]

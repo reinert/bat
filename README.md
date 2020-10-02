@@ -1,5 +1,7 @@
 ## Install pre-requisites
-* Docker and docker-compose
+- Docker and docker-compose
+
+
 
 # Quick start
 If you just want to setup the project quickly, run the tests and see the results do the following:
@@ -35,6 +37,7 @@ dotnet run
 ```
 
 Enjoy.
+
 
 
 # Development instructions
