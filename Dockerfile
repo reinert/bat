@@ -42,4 +42,3 @@ COPY --from=server-build /home/$USER/deploy /app
 WORKDIR /app
 EXPOSE 8085
 ENTRYPOINT [ "dotnet", "Server.dll" ]
-

@@ -26,7 +26,6 @@ services:
       - ./tests:/home/reinert/tests/
     depends_on:
       - db
-    # command: bash -c "cd src/Server && dotnet ef database update"
     # command: bash -c "cd tests/Server && dotnet run"
     command: bash
     stdin_open: true
