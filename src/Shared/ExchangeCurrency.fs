@@ -64,3 +64,6 @@ module ExchangeCurrency =
                        // FIXME: Many-to-Many is poorly supported in EFCore 3.x but it'll work in 5.x
                        // Events = [{ Id = 1; Name = "China Holiday" }; { Id = 2; Name = "Brexit Annoucement" }]
                        Provider = provider }
+       
+    let newProvider (name: string) =
+        Ok { Id = 0; Name = name }

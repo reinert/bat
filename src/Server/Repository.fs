@@ -6,6 +6,9 @@ open System.ComponentModel.DataAnnotations
 open Shared
 
 type IRepository =
+    abstract addProvider : Provider -> Result<Provider, unit>
+    abstract getProviders : unit -> Provider list
+    
     abstract addTransaction : ExchangeTransaction -> Result<ExchangeTransaction, unit>
     abstract getTransactions : unit -> ExchangeTransaction list
 
@@ -68,20 +71,35 @@ type EfRepository() =
     abstract getContext : unit -> BaseContext
     
     interface IRepository with
+        member this.addProvider (e: Provider) =
+            // TODO: set up a connection pool
+            use ctx = this.getContext()
+            ctx.Providers.Add e |> ignore
+            ctx.SaveChanges() |> ignore
+            // ctx.Dispose()
+            Ok e
+        
+        member this.getProviders () =
+            // TODO: set up a connection pool
+            use ctx = this.getContext()
+            let result = ctx.Providers
+            // ctx.Dispose()
+            List.ofSeq result
+
         member this.addTransaction (t: ExchangeTransaction) =
             // TODO: set up a connection pool
             use ctx = this.getContext()
             ctx.ExchangeTransactions.Add t |> ignore
             ctx.SaveChanges() |> ignore
-            ctx.Dispose()
+            // ctx.Dispose()
             Ok t
 
         member this.getTransactions () =
             // TODO: set up a connection pool
             use ctx = this.getContext()
-            let ts = ctx.ExchangeTransactions
-            ctx.Dispose()
-            List.ofSeq ts
+            let result = ctx.ExchangeTransactions
+                            .Include("Provider")
+            List.ofSeq result
 
 type SqliteRepository() =
     inherit EfRepository()
