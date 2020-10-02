@@ -15,6 +15,7 @@ let all =
         [
             Shared.Tests.shared
             Repository.Tests.sqliteRepository
+            Repository.Tests.pgsqlRepository
             server
         ]
 

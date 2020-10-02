@@ -5,7 +5,7 @@ open System.ComponentModel.DataAnnotations
 
 open Shared
 
-type Repository =
+type IRepository =
     abstract addTransaction : ExchangeTransaction -> Result<ExchangeTransaction, unit>
     abstract getTransactions : unit -> ExchangeTransaction list
 
@@ -72,11 +72,14 @@ type PgsqlContext() =
             .UseSnakeCaseNamingConvention()
             |> ignore
 
-type SqliteRepository() =
-    interface Repository with
+[<AbstractClass>]
+type EfRepository() =
+    abstract getContext : unit -> BaseContext
+    
+    interface IRepository with
         member this.addTransaction (t: ExchangeTransaction) =
             // TODO: set up a connection pool
-            use ctx = new SqliteContext()
+            use ctx = this.getContext()
             ctx.ExchangeTransactions.Add t |> ignore
             ctx.SaveChanges() |> ignore
             ctx.Dispose()
@@ -84,7 +87,29 @@ type SqliteRepository() =
 
         member this.getTransactions () =
             // TODO: set up a connection pool
-            use ctx = new SqliteContext()
+            use ctx = this.getContext()
             let ts = ctx.ExchangeTransactions
             ctx.Dispose()
             List.ofSeq ts
+
+type SqliteRepository() =
+    inherit EfRepository()
+
+    override __.getContext () =
+        new SqliteContext() :> BaseContext
+
+type PgsqlRepository() =
+    inherit EfRepository()
+
+    override __.getContext () =
+        new PgsqlContext() :> BaseContext
+
+type Database =
+    | Sqlite
+    | PostgreSql
+
+module Repository =
+    let getRepository (database: Database) =
+        match database with
+        | Database.Sqlite -> new SqliteRepository() :> IRepository
+        | Database.PostgreSql -> new PgsqlRepository() :> IRepository
