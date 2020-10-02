@@ -10,20 +10,25 @@ type Currency =
 
 // TODO: Set up aggregation for ExchangePair in EF
 // type ExchangePair =
-//     { FromCurrency : Currency
-//       ToCurrency : Currency }
+//     { FromCurrency: Currency
+//       ToCurrency: Currency }
+
+[<CLIMutable>]
+type Provider =
+    { [<Key>] Id: int
+      Name: string }
 
 [<CLIMutable>]
 type ExchangeTransaction = 
-    { [<Key>] Id : int
+    { [<Key>] Id: int
       Date : DateTime
       // TODO: Set up aggregation for ExchangePair in EF
       // Pair : ExchangePair
-      FromCurrency : Currency
-      ToCurrency : Currency
-      Price : decimal
-      Quantity : int
-      Provider : string }
+      FromCurrency: Currency
+      ToCurrency: Currency
+      Price: decimal
+      Quantity: int
+      Provider: Provider }
 
 module ExchangeCurrency =
     let validateTransaction (price: decimal) (quantity: int) =
@@ -31,7 +36,7 @@ module ExchangeCurrency =
         else if quantity <= 0 then Error "quantity cannot be less or equal to zero"
         else Ok ()
 
-    let newTransaction (date: DateTime) (fromCurrency: Currency) (toCurrency: Currency) (price: decimal) (quantity: int) (provider: string) =
+    let newTransaction (date: DateTime) (fromCurrency: Currency) (toCurrency: Currency) (price: decimal) (quantity: int) (provider: Provider) =
         validateTransaction price quantity |> function
         | Error e -> Error e
         | Ok _ -> Ok { Id = 0
