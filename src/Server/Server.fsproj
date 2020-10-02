@@ -10,6 +10,8 @@
     <Compile Include="Repository.fs" />
     <Compile Include="Migrations/Sqlite/SqliteContextModelSnapshot.fs" />
     <Compile Include="Migrations/Sqlite/20201002151314_Initial.fs" />
+    <Compile Include="Migrations/Pgsql/PgsqlContextModelSnapshot.fs" />
+    <Compile Include="Migrations/Pgsql/20201002180025_Initial.fs" />
     <Compile Include="Server.fs" />
   </ItemGroup>
   <ItemGroup>

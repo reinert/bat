@@ -2,3 +2,5 @@ Saturn
 Fable.Remoting.Giraffe
 EntityFrameworkCore.FSharp
 Microsoft.EntityFrameworkCore.Sqlite
+Npgsql.EntityFrameworkCore.PostgreSQL
+EFCore.NamingConventions

@@ -16,10 +16,14 @@ services:
     build:
       context: .
       target: build
+      args:
+        USER: $SV_USER
+        USER_ID: $SV_USER_ID
+        GROUP_ID: $SV_GROUP_ID
     volumes:
-      - ./.data:/workspace/.data
-      - ./src:/workspace/src/
-      - ./tests:/workspace/tests/
+      - ./.data:/home/reinert/.data
+      - ./src:/home/reinert/src/
+      - ./tests:/home/reinert/tests/
     depends_on:
       - db
     # command: bash -c "cd src/Server && dotnet ef database update"

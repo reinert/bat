@@ -1,11 +1,11 @@
 STORAGE: NONE
 RESTRICTION: == netcoreapp3.1
 NUGET
-  remote: ./packages-local
-    EntityFrameworkCore.FSharp (3.1.5-alpha1)
-      FSharp.Core (>= 4.6.2)
-      Microsoft.EntityFrameworkCore.Design (>= 3.1.5)
   remote: https://api.nuget.org/v3/index.json
+    EFCore.NamingConventions (1.1)
+      Microsoft.EntityFrameworkCore (>= 3.1.1)
+      Microsoft.EntityFrameworkCore.Relational (>= 3.1.1)
+      Microsoft.Extensions.DependencyInjection.Abstractions (>= 3.1.1)
     Expecto (9.0.2)
       FSharp.Core (>= 4.6)
       Mono.Cecil (>= 0.11.2)
@@ -192,6 +192,13 @@ NUGET
     NETStandard.Library (2.0.3)
       Microsoft.NETCore.Platforms (>= 1.1)
     Newtonsoft.Json (12.0.3)
+    Npgsql (4.1.5)
+      System.Runtime.CompilerServices.Unsafe (>= 4.6)
+    Npgsql.EntityFrameworkCore.PostgreSQL (3.1.4)
+      Microsoft.EntityFrameworkCore (>= 3.1.4)
+      Microsoft.EntityFrameworkCore.Abstractions (>= 3.1.4)
+      Microsoft.EntityFrameworkCore.Relational (>= 3.1.4)
+      Npgsql (>= 4.1.3.1)
     Saturn (0.14.1)
       FSharp.Control.Websockets (>= 0.2.2)
       FSharp.Core (>= 4.7.2)
@@ -216,6 +223,7 @@ NUGET
     System.Memory (4.5.4)
     System.Reflection.Emit (4.7)
     System.Reflection.Emit.Lightweight (4.7)
+    System.Runtime.CompilerServices.Unsafe (4.7.1)
     System.Security.Cryptography.Cng (4.7)
     System.Text.Json (4.7.2)
     System.Threading.Tasks.Dataflow (4.11.1)
@@ -236,6 +244,10 @@ NUGET
       System.Reflection.Emit.Lightweight (>= 4.3)
       System.Threading.Tasks.Extensions (>= 4.4)
       System.ValueTuple (>= 4.4)
+  remote: ./packages-local
+    EntityFrameworkCore.FSharp (3.1.5-alpha1)
+      FSharp.Core (>= 4.6.2)
+      Microsoft.EntityFrameworkCore.Design (>= 3.1.5)
 
 GROUP Build
 STORAGE: NONE

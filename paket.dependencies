@@ -19,6 +19,8 @@ nuget Fable.Mocha
 nuget Fable.React
 nuget Fable.Remoting.Client
 nuget Fulma
+nuget Npgsql.EntityFrameworkCore.PostgreSQL
+nuget EFCore.NamingConventions
 
 group Build
     source https://api.nuget.org/v3/index.json

@@ -9,7 +9,7 @@ type Repository =
     abstract addTransaction : ExchangeTransaction -> Result<ExchangeTransaction, unit>
     abstract getTransactions : unit -> ExchangeTransaction list
 
-type SqliteContext() =  
+type BaseContext() =  
     inherit DbContext()
 
     [<DefaultValue>]
@@ -56,8 +56,21 @@ type SqliteContext() =
         //             .IsRequired() |> ignore
         //     )) |> ignore
 
+
+type SqliteContext() =
+    inherit BaseContext()
+
     override __.OnConfiguring(options: DbContextOptionsBuilder) : unit =
         options.UseSqlite("Data Source=../../.data/sqlite/exchange_currency.db") |> ignore
+
+type PgsqlContext() =
+    inherit BaseContext()
+
+    override __.OnConfiguring(options: DbContextOptionsBuilder) : unit =
+        options
+            .UseNpgsql("Host=db;Database=bat;Username=bat;Password=bat")
+            .UseSnakeCaseNamingConvention()
+            |> ignore
 
 type SqliteRepository() =
     interface Repository with
