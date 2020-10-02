@@ -13,9 +13,48 @@ type SqliteContext() =
     inherit DbContext()
 
     [<DefaultValue>]
-    val mutable m_exchange_transactions : DbSet<ExchangeTransaction>
-    member __.ExchangeTransactions with get() = __.m_exchange_transactions
-                                   and set v = __.m_exchange_transactions <- v
+    val mutable exchangeTransactions : DbSet<ExchangeTransaction>
+    member __.ExchangeTransactions with get() = __.exchangeTransactions
+                                   and set v = __.exchangeTransactions <- v
+
+    [<DefaultValue>]
+    val mutable providers : DbSet<Provider>
+    member __.Providers with get() = __.providers
+                        and set v = __.providers <- v
+
+    [<DefaultValue>]
+    val mutable events : DbSet<Event>
+    member __.Events with get() = __.events
+                     and set v = __.events <- v
+
+    [<DefaultValue>]
+    val mutable exchangeTransactionEvents : DbSet<ExchangeTransactionEvent>
+    member __.ExchangeTransactionEvents with get() = __.exchangeTransactionEvents
+                                        and set v = __.exchangeTransactionEvents <- v
+
+    override __.OnModelCreating(modelBuilder: ModelBuilder) : unit =
+        modelBuilder.Entity<ExchangeTransactionEvent>()
+            .HasKey([| "TransactionId"; "EventId" |]) |> ignore
+        
+        modelBuilder.Entity<ExchangeTransactionEvent>((fun e ->
+                e.HasOne<ExchangeTransaction>("Transaction")
+                    .WithMany()
+                    .HasForeignKey("TransactionId") |> ignore
+            )) |> ignore        
+
+        modelBuilder.Entity<ExchangeTransactionEvent>((fun e ->
+                e.HasOne<Event>("Event")
+                    .WithMany()
+                    .HasForeignKey("EventId") |> ignore
+            )) |> ignore
+
+        // modelBuilder.Entity("BloggingModel+Post", (fun b ->
+        //         b.HasOne("BloggingModel+Blog","Blog")
+        //             .WithMany()
+        //             .HasForeignKey("BlogId")
+        //             .OnDelete(DeleteBehavior.Cascade)
+        //             .IsRequired() |> ignore
+        //     )) |> ignore
 
     override __.OnConfiguring(options: DbContextOptionsBuilder) : unit =
         options.UseSqlite("Data Source=../../.data/sqlite/exchange_currency.db") |> ignore

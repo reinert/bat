@@ -32,6 +32,8 @@ let shared = testList "Shared" [
                          ToCurrency = Currency.USD
                          Price = 220.50m
                          Quantity = 100
+                         // FIXME: Many-to-Many is poorly supported in EFCore 3.x but it'll work in 5.x
+                         // Events = [{ Id = 1; Name = "China Holiday" }; { Id = 2; Name = "Brexit Annoucement" }]
                          Provider = { Id = 0; Name = "Provider" } }
         
         Expect.equal expected created "Should be equal"
