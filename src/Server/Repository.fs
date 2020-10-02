@@ -48,15 +48,6 @@ type BaseContext() =
                     .HasForeignKey("EventId") |> ignore
             )) |> ignore
 
-        // modelBuilder.Entity("BloggingModel+Post", (fun b ->
-        //         b.HasOne("BloggingModel+Blog","Blog")
-        //             .WithMany()
-        //             .HasForeignKey("BlogId")
-        //             .OnDelete(DeleteBehavior.Cascade)
-        //             .IsRequired() |> ignore
-        //     )) |> ignore
-
-
 type SqliteContext() =
     inherit BaseContext()
 
