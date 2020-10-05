@@ -1,4 +1,4 @@
-version: "3.8"
+version: "3.7"
 services:
   db:
     image: postgres:alpine
@@ -26,7 +26,7 @@ services:
       - ./tests:/home/$SV_USER/tests/
     depends_on:
       - db
-    # command: bash -c "cd tests/Server && dotnet run"
+    # command: bash -c "run-tests.sh"
     command: bash
     stdin_open: true
     tty: true
