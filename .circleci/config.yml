@@ -1,7 +1,8 @@
 version: 2
 jobs:
   build:
-    machine: true
+    machine:
+        image: circleci/ubuntu-2004:202008-01
 
     steps:
         - checkout
