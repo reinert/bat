@@ -11,29 +11,10 @@ If you just want to setup the project quickly, run the tests and see the results
 docker-compose up
 ```
 
-After both `bat_db_1` and `bat_server_1` containers are built and running, open another terminal and enter the server container with the command:
+After both `bat_db_1` and `bat_server_1` containers are built and running, open another terminal and run the tests in server container with the command:
 
 ```bash
-docker exec -it bat_server_1 bash
-```
-
-Now you're inside the server container where you can run dotnet tools to develop your backend application. Before you run the tests you need to set up the database schema. As this project is integrated with two databases, run the following commands:
-
-```bash
-dotnet ef --project src/Server/ database update --context SqliteContext -v
-dotnet ef --project src/Server/ database update --context PgsqlContext -v
-```
-
-Now your two databases are updated and ready to communicate with your backend application. Before running the tests, please enter the 'tests/Server' directory:
-
-```bash
-cd tests/Server
-```
-
-Now you can smoothly run the tests:
-
-```bash
-dotnet run
+docker exec bat_server_1 sh -c "./run-tests.sh"
 ```
 
 Enjoy.
