@@ -21,9 +21,9 @@ services:
         USER_ID: $SV_USER_ID
         GROUP_ID: $SV_GROUP_ID
     volumes:
-      - ./.data:/home/reinert/.data
-      - ./src:/home/reinert/src/
-      - ./tests:/home/reinert/tests/
+      - ./.data:/home/$SV_USER/.data
+      - ./src:/home/$SV_USER/src/
+      - ./tests:/home/$SV_USER/tests/
     depends_on:
       - db
     # command: bash -c "cd tests/Server && dotnet run"
