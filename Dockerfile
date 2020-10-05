@@ -16,10 +16,10 @@ USER $USER
 WORKDIR /home/$USER
 COPY .config .config
 RUN dotnet tool restore
-#RUN dotnet tool install dotnet-ef
 COPY .paket .paket
 COPY paket.dependencies paket.lock ./
 COPY packages-local packages-local
+COPY run-tests.sh run-tests.sh
 RUN dotnet paket restore
 
 
