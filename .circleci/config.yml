@@ -8,4 +8,4 @@ jobs:
         - checkout
         - run: ./setup-dev.sh
         - run: docker-compose up -d
-        - run: docker exec bat_server_1 sh -c "./run-tests.sh"
+        - run: docker exec project_server_1 sh -c "./run-tests.sh"
