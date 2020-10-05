@@ -1,4 +1,4 @@
-version: 2 # CircleCI version
+version: 2
 jobs:
   build:
     machine: true
