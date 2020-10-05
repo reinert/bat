@@ -1,0 +1,10 @@
+version: 2 # CircleCI version
+jobs:
+  build:
+    machine: true
+
+    steps:
+        - checkout
+        - run: ./setup-dev.sh
+        - run: docker-compose up -d
+        - run: docker exec bat_server_1 sh -c "./run-tests.sh"
